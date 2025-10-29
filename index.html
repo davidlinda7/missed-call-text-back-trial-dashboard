@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Missed Call Text Back — Trial Dashboard</title>
+  <!-- Tailwind CDN (safe for quick deploys). For production, you can compile locally. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Simple card + tabs styling */
+    .card { @apply bg-white rounded-2xl shadow p-5 border; }
+    .tab-btn[aria-selected="true"] { @apply bg-gray-900 text-white; }
+    .tab-btn[aria-selected="false"] { @apply bg-gray-100 text-gray-700 hover:bg-gray-200; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <main class="max-w-7xl mx-auto p-6 grid gap-6">
+    <!-- Header / Trial Banner -->
+    <section id="trial-banner" class="card border-2">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div class="flex items-center gap-4">
+          <div class="h-10 w-10 rounded-full bg-amber-100 grid place-items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-700" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 16v-4m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <p id="trial-headline" class="font-semibold">Free Trial Active</p>
+            <p class="text-sm text-gray-600">See how missed-call automation impacts revenue. Unlock Pro when you're ready.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 w-full md:w-auto">
+          <div class="w-full md:w-48">
+            <div class="w-full h-2 rounded bg-gray-200 overflow-hidden">
+              <div id="trial-progress" class="h-2 bg-emerald-500" style="width: 0%"></div>
+            </div>
+            <p id="trial-sub" class="text-xs text-gray-500 mt-1">0% of trial used</p>
+          </div>
+          <a href="#" class="inline-flex items-center justify-center rounded-xl px-4 py-2 bg-gray-900 text-white">Upgrade</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Welcome + Video -->
+    <section class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+      <div>
+        <h1 class="text-3xl font-bold mb-2">Welcome to Your Free Trial 🎉</h1>
+        <p class="text-gray-600 max-w-xl">
+          You’re moments away from seeing how much revenue missed calls could be costing you — and how automation fixes it instantly.
+        </p>
+        <div class="mt-3 inline-flex items-center gap-2">
+          <span id="setup-pill" class="inline-flex items-center px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm">Setup: 2/4 complete</span>
+          <a href="#" class="inline-flex items-center rounded-xl px-3 py-1.5 border text-sm">Continue Setup</a>
+        </div>
+      </div>
+      <div class="w-full lg:w-[520px] aspect-video rounded-2xl overflow-hidden border bg-black/5">
+        <iframe id="welcome-iframe"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="Welcome Video"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen
+          class="w-full h-full"></iframe>
+      </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="card">
+        <h3 class="font-semibold">Missed Calls Today</h3>
+        <p id="metric-missed" class="text-3xl font-bold mt-2">12</p>
+        <p class="text-sm text-gray-500">Automatically followed up by AI</p>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold">Text-Back Conversions</h3>
+        <p id="metric-conversions" class="text-3xl font-bold mt-2">5</p>
+        <p class="text-sm text-gray-500">Leads re-engaged within minutes</p>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold">Calls Saved This Week</h3>
+        <p id="metric-saved" class="text-3xl font-bold mt-2 text-emerald-600">36</p>
+        <div class="w-full h-2 rounded bg-gray-200 overflow-hidden mt-3">
+          <div id="weekly-progress" class="h-2 bg-emerald-500" style="width: 72%"></div>
+        </div>
+        <p id="weekly-sub" class="text-xs text-gray-500 mt-1">72% of weekly goal</p>
+      </div>
+    </section>
+
+    <!-- Upsells (Tabs) -->
+    <section class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+      <div class="card">
+        <div class="flex gap-2 mb-4">
+          <button class="tab-btn px-3 py-2 rounded-xl text-sm" data-tab="ai" aria-selected="true">⚡ AI Agent</button>
+          <button class="tab-btn px-3 py-2 rounded-xl text-sm" data-tab="reputation" aria-selected="false">⭐ Reputation</button>
+          <button class="tab-btn px-3 py-2 rounded-xl text-sm" data-tab="social" aria-selected="false">💬 Social Planner</button>
+          <button class="tab-btn px-3 py-2 rounded-xl text-sm" data-tab="analytics" aria-selected="false">📊 Analytics</button>
+        </div>
+
+        <div id="tab-ai" class="tab-pane">
+          <h3 class="font-semibold text-lg mb-2">AI Sales & Support Agent</h3>
+          <p class="text-gray-600 mb-4">Turn missed calls into conversations 24/7. Greet, qualify, and book customers automatically.</p>
+          <div class="flex items-center gap-3">
+            <a href="#" class="inline-flex items-center rounded-xl px-4 py-2 bg-gray-900 text-white">Activate AI Agent</a>
+            <a href="#" class="inline-flex items-center rounded-xl px-4 py-2 border">View Conversation Samples</a>
+          </div>
+        </div>
+
+        <div id="tab-reputation" class="tab-pane hidden">
+          <h3 class="font-semibold text-lg mb-2">Reputation Management</h3>
+          <p class="text-gray-600 mb-4">Automatically request reviews after every job and publish them on Google & Facebook.</p>
+          <div class="flex items-center gap-3">
+            <a href="#" class="inline-flex items-center rounded-xl px-4 py-2 bg-gray-900 text-white">Enable Review Requests</a>
+            <a href="#" class="inline-flex items-center rounded-xl px-4 py-2 border">Connect Google</a>
+          </div>
+        </div>
+
+        <div id="tab-social" class="tab-pane hidden">
+          <h3 class="font-semibold text-lg mb-2">Social Media Planner</h3>
+          <p class="text-gray-600 mb-4">Schedule content to Facebook, Instagram, and LinkedIn from one dashboard.</p>
+          <div class="flex items-center gap-3">
+            <a href="#" class="inline-flex items-center rounded-xl px-4 py-2 bg-gray-900 text-white">Connect Social Accounts</a>
+            <a href="#" class="inline-flex items-center rounded-xl px-4 py-2 border">View Content Ideas</a>
+          </div>
+        </div>
+
+        <div id="tab-analytics" class="tab-pane hidden">
+          <h3 class="font-semibold text-lg mb-2">Advanced Analytics</h3>
+          <p class="text-gray-600 mb-4">See how automation impacts your bottom line: call stats, response times, conversions.</p>
+          <div class="flex items-center gap-3">
+            <a href="#" class="inline-flex items-center rounded-xl px-4 py-2 bg-gray-900 text-white">Upgrade to Pro</a>
+            <a href="#" class="inline-flex items-center rounded-xl px-4 py-2 border">See Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Setup Checklist -->
+      <div class="card">
+        <h3 class="font-semibold text-lg mb-3">Setup Checklist</h3>
+        <ul id="checklist" class="space-y-2">
+          <li class="flex items-center gap-3"><input type="checkbox" checked class="h-4 w-4"><span class="line-through text-gray-400">Connect your business number</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="h-4 w-4"><span>Turn on Missed Call Text Back</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="h-4 w-4"><span>Add SMS & email templates</span></li>
+          <li class="flex items-center gap-3"><input type="checkbox" class="h-4 w-4"><span>Make a test call to verify</span></li>
+        </ul>
+        <div class="flex items-center justify-between mt-4">
+          <div class="w-48">
+            <div class="w-full h-2 rounded bg-gray-200 overflow-hidden">
+              <div id="setup-progress" class="h-2 bg-emerald-500" style="width: 25%"></div>
+            </div>
+            <p id="setup-sub" class="text-xs text-gray-500 mt-1">1/4 (25%)</p>
+          </div>
+          <a href="#" class="inline-flex items-center rounded-xl px-3 py-1.5 border text-sm">View Setup Guide</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-center text-xs text-gray-500 py-6">
+      © <span id="year"></span> RepDigi / LL Media — Missed Call Text Back Trial
+    </footer>
+  </main>
+
+  <script>
+    // ---------- Config (override via URL params) ----------
+    const params = new URLSearchParams(window.location.search);
+    const config = {
+      welcomeVideo: params.get("video") || "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      trialTotalDays: Number(params.get("trial_total")) || 14,
+      trialUsedDays: Number(params.get("trial_used")) || 3,
+      missedCalls: Number(params.get("missed")) || 12,
+      conversions: Number(params.get("conv")) || 5,
+      saved: Number(params.get("saved")) || 36,
+      weeklyGoalPct: Number(params.get("goal")) || 72,
+      setupDone: Number(params.get("setup_done")) || 1,
+      setupTotal: Number(params.get("setup_total")) || 4,
+    };
+
+    // ---------- Trial UI ----------
+    const trialLeft = Math.max(config.trialTotalDays - config.trialUsedDays, 0);
+    const trialPct = Math.min(Math.round((config.trialUsedDays / config.trialTotalDays) * 100), 100);
+    document.getElementById("trial-headline").textContent =
+      `Free Trial Active — ${trialLeft} day${trialLeft === 1 ? "" : "s"} left`;
+    document.getElementById("trial-progress").style.width = trialPct + "%";
+    document.getElementById("trial-sub").textContent = `${trialPct}% of trial used`;
+
+    // ---------- Welcome Video ----------
+    document.getElementById("welcome-iframe").src = config.welcomeVideo;
+
+    // ---------- Metrics ----------
+    document.getElementById("metric-missed").textContent = config.missedCalls;
+    document.getElementById("metric-conversions").textContent = config.conversions;
+    document.getElementById("metric-saved").textContent = config.saved;
+    document.getElementById("weekly-progress").style.width = config.weeklyGoalPct + "%";
+    document.getElementById("weekly-sub").textContent = `${config.weeklyGoalPct}% of weekly goal`;
+
+    // ---------- Checklist ----------
+    const setupPct = Math.min(Math.round((config.setupDone / config.setupTotal) * 100), 100);
+    document.getElementById("setup-progress").style.width = setupPct + "%";
+    document.getElementById("setup-sub").textContent = `${config.setupDone}/${config.setupTotal} (${setupPct}%)`;
+    document.getElementById("setup-pill").textContent = `Setup: ${config.setupDone}/${config.setupTotal} complete`;
+
+    // ---------- Tabs ----------
+    const tabs = document.querySelectorAll(".tab-btn");
+    const panes = {
+      ai: document.getElementById("tab-ai"),
+      reputation: document.getElementById("tab-reputation"),
+      social: document.getElementById("tab-social"),
+      analytics: document.getElementById("tab-analytics"),
+    };
+    tabs.forEach(btn => {
+      btn.addEventListener("click", () => {
+        tabs.forEach(b => b.setAttribute("aria-selected", "false"));
+        btn.setAttribute("aria-selected", "true");
+        const target = btn.dataset.tab;
+        Object.entries(panes).forEach(([k, el]) => el.classList.toggle("hidden", k !== target));
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
